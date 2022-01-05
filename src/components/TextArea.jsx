@@ -7,9 +7,9 @@ function TextArea() {
 
     const [word, setWord] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [sentiment, setSentiment] = useState("");
+    const [result, setResult] = useState("");
 
-     function fetchData() {
+     async function fetchData() {
        const options = {
          credentials: "include",
          method: "GET",
@@ -22,16 +22,18 @@ function TextArea() {
        };
 
        axios
+         .post()
          .request(options)
          .then(function (response) {
            console.log(response.data);
-            setSentiment(response.data.sentiment);
-            setIsLoading(false);
+           setResult(response.data.result);
+           setIsLoading(false);
          })
          .catch(function (error) {
            console.error(error);
          });
      }
+
 
     return (
       <>
@@ -62,7 +64,7 @@ function TextArea() {
         ) : (
           <div className="data">
             <p>
-              Related to: <span>{sentiment}</span>
+              Related to: <span>{result} </span>
             </p>
           </div>
         )}
